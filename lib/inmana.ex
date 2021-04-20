@@ -1,9 +1,7 @@
+# Usando o Design pattern Facade trazendo nossa regra de negócio para o modolo principal
+# Tendo assim modolos enxuto e independentes e centralizado em um unico lugar
 defmodule Inmana do
-  @moduledoc """
-  Inmana keeps the contexts that define your domain
-  and business logic.
-
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  alias Inmana.Restaurants.Create
+  # Delegar um função
+  defdelegate create_restaurant(params), to: Create, as: :call
 end

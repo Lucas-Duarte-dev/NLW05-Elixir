@@ -2,7 +2,7 @@ defmodule InmanaWeb.RestaurantsController do
   use InmanaWeb, :controller
 
   alias Inmana.Restaurant
-  alias Inmana.Restaurants.Create
+
 
   alias InmanaWeb.FallbackController
 
@@ -13,7 +13,7 @@ defmodule InmanaWeb.RestaurantsController do
     # Caso contrario ele pode receber um else que retorna varias respostas que você define
     # Simm!! Isso é bizarro de incrível
 
-    with {:ok, %Restaurant{} = restaurant } <- Create.call(params) do
+    with {:ok, %Restaurant{} = restaurant } <- Inmana.create_restaurant(params) do
       conn
       |> put_status(:created)
       |> render("create.json", restaurant: restaurant)
