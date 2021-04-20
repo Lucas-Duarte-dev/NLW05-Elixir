@@ -2,6 +2,9 @@ defmodule Inmana.Restaurant do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @required_params [:email, :name]
+
+  @derive {Jason.Encoder, only: @required_params ++ [:id]}
   # O Schema é praticamento os models que uso no js, onde mostra qual é a estrutura que o dado espera receber
   schema "restaurants" do
     field :email, :string
@@ -17,8 +20,8 @@ defmodule Inmana.Restaurant do
 
 
     %__MODULE__{}
-    |> cast(params, [:email, :name])
-    |> validate_required([:email, :name])
+    |> cast(params, @required_params)
+    |> validate_required(@required_params)
     |> validate_length(:name, min: 2)
     |> validate_format(:email, ~r/@/)
     |> unique_constraint([:email])
