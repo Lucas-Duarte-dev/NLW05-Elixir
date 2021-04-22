@@ -1,0 +1,23 @@
+defmodule Inmana.Supplies.GetByExpiration do
+  import Ecto.Query
+
+  alias Inmana.{Repo, Restaurant ,Supply}
+
+  def call do
+    today = Date.utc_today()
+    beginning_of_week = Date.beginning_of_week(today)
+    end_of_week = Date.end_of_week(today)
+
+
+    # ^ ou Pin Operator: Ele fixa um valor, então o mesmo não podera ser reatribuido
+    query =
+      from supply in Supply,
+        where:
+          supply.expiration_date >= ^beginning_of_week and supply.expiration_date <= ^end_of_week,
+          preload: [:restaurant]
+
+    query
+    |> Repo.all()
+    |> Enum.group_by(fn %Supply{restaurant: %Restaurant{email: email}} -> email end)
+  end
+end

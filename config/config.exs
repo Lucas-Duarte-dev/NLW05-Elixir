@@ -10,6 +10,7 @@ use Mix.Config
 config :inmana,
   ecto_repos: [Inmana.Repo]
 
+config :inmana, Inmana.Mailer, adapter: Bamboo.LocalAdapter
 # Configures the endpoint
 config :inmana, InmanaWeb.Endpoint,
   url: [host: "localhost"],
