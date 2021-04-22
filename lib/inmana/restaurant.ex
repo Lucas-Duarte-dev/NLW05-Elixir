@@ -2,6 +2,8 @@ defmodule Inmana.Restaurant do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Inmana.Supply
+
   @required_params [:email, :name]
 
   @derive {Jason.Encoder, only: @required_params ++ [:id]}
@@ -9,6 +11,8 @@ defmodule Inmana.Restaurant do
   schema "restaurants" do
     field :email, :string
     field :name, :string
+
+    has_many :supplies, Supply
     # O timestamps já entrega os valores de updated_at e created_at
     timestamps()
   end
